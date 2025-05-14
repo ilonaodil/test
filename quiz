@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Kind of Plant Are You?</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f4f4f4;
+      color: #333;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .question {
+      margin: 2rem 0;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      font-size: 1rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .result {
+      text-align: center;
+      display: none;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>What Kind of Plant Are You?</h1>
+  <div id="quiz"></div>
+  <div id="result" class="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "Pick a time of day:",
+        options: ["Sunrise", "Mid-morning", "Noon", "Afternoon", "Evening", "Midnight"]
+      },
+      {
+        q: "Your ideal weekend includes:",
+        options: ["Gardening", "Reading", "Hiking", "Partying", "Sleeping", "Painting"]
+      },
+      {
+        q: "Pick a color:",
+        options: ["Green", "Yellow", "Red", "Blue", "Purple", "White"]
+      },
+      {
+        q: "Which element speaks to you?",
+        options: ["Earth", "Fire", "Water", "Air", "Light", "Shadow"]
+      },
+      {
+        q: "Pick a scent:",
+        options: ["Lavender", "Citrus", "Cinnamon", "Vanilla", "Mint", "Rain"]
+      },
+      {
+        q: "Your energy is best described as:",
+        options: ["Calm", "Vibrant", "Grounded", "Free", "Creative", "Quiet"]
+      },
+    ];
+
+    const results = [
+      {
+        name: "Cactus",
+        description: "You're tough, independent, and thrive in solitude.",
+        image: "https://source.unsplash.com/600x400/?cactus"
+      },
+      {
+        name: "Fern",
+        description: "You're adaptable and flourish in calm, cool environments.",
+        image: "https://source.unsplash.com/600x400/?fern"
+      },
+      {
+        name: "Sunflower",
+        description: "You're cheerful, radiant, and full of positive energy.",
+        image: "https://source.unsplash.com/600x400/?sunflower"
+      },
+      {
+        name: "Orchid",
+        description: "You're elegant, mysterious, and thrive with care.",
+        image: "https://source.unsplash.com/600x400/?orchid"
+      },
+      {
+        name: "Moss",
+        description: "You're quiet, observant, and grow steadily in your own time.",
+        image: "https://source.unsplash.com/600x400/?moss"
+      },
+      {
+        name: "Bamboo",
+        description: "You're strong, flexible, and grow quickly in any environment.",
+        image: "https://source.unsplash.com/600x400/?bamboo"
+      },
+    ];
+
+    let answers = [];
+    let current = 0;
+
+    function showQuestion() {
+      const container = document.getElementById("quiz");
+      container.innerHTML = "";
+
+      if (current < questions.length) {
+        const q = questions[current];
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<h2>${q.q}</h2>`;
+
+        const opts = document.createElement("div");
+        opts.className = "options";
+
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => {
+            answers.push(i);
+            current++;
+            showQuestion();
+          };
+          opts.appendChild(btn);
+        });
+
+        div.appendChild(opts);
+        container.appendChild(div);
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const result = document.getElementById("result");
+      const index = answers.reduce((a, b) => a + b, 0) % results.length;
+      const res = results[index];
+      result.innerHTML = `
+        <h2>You are a ${res.name}!</h2>
+        <img src="${res.image}" alt="${res.name}" />
+        <p>${res.description}</p>
+      `;
+      result.style.display = "block";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
