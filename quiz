@@ -78,7 +78,7 @@
       {
         name: "Cactus",
         description: "You're tough, independent, and thrive in solitude.",
-        image: "https://source.unsplash.com/600x400/?cactus"
+        image: "cacti.jpg"
       },
       {
         name: "Fern",
